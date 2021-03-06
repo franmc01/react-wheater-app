@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Error from './Error';
 // import PropTypes from 'prop-types'
 
 const Formulario = ({busqueda, setBusqueda, setEjecutar}) => {
@@ -29,7 +30,7 @@ const Formulario = ({busqueda, setBusqueda, setEjecutar}) => {
     return (
         <form onSubmit={handleSubmit}>
 
-            {error && <p className="red darken-3 error">Todos los campos son obligatorios</p>}
+            {error && <Error message='Debe completar todos los campos' />}
 
             <div className="row">
                 <div className="input-field col s12">

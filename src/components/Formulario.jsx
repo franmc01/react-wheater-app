@@ -8,6 +8,8 @@ const Formulario = () => {
         country: ''
     });
 
+    const [error, setError] = useState(false);
+
     const handleInputChange = (e) => {
         setBusqueda({
             ...busqueda,
@@ -15,8 +17,24 @@ const Formulario = () => {
         });
     }
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        //Validación
+        if(busqueda.city.trim() === '' || busqueda.country.trim() === ''){
+            setError(true);
+            return;
+        }
+
+        //Después de la validación
+        setError(false);
+    }
+
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
+
+            {error && <p className="red darken-3 error">Todos los campos son obligatorios</p> }
+
             <div className="row">
                 <div className="input-field col s12">
                     <input id="ciudad"
@@ -41,6 +59,12 @@ const Formulario = () => {
                     </select>
                     <label>Pais: </label>
                 </div>
+            </div>
+            <div className="input-field col s12">
+                <button type="submit" 
+                        className="waves-effect waves-light btn-large btn-block yellow accent-4">
+                    Busca clima
+                </button>
             </div>
         </form>
     )

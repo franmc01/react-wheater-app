@@ -1,4 +1,5 @@
 import { Fragment, useState, useEffect } from 'react';
+import Clima from './components/Clima';
 import Formulario from './components/Formulario';
 import { Header } from './components/Header';
 
@@ -10,12 +11,13 @@ function App() {
 
   useEffect(() => {
 
-    if (ejecutar) {
+    if (ejecutar && Object.values(busqueda) !== '') {
+      setEjecutar(false);
       const url = `http://api.openweathermap.org/data/2.5/weather?q=${busqueda?.city}, ${busqueda?.country}&appid=69053cfab3a1662679ac6884258d78e9`;
       consultarAPI(url);
     }
 
-  }, [ejecutar]);
+  }, [busqueda,ejecutar]);
 
   const consultarAPI = async (url) => {
     const resp = await fetch(url);
@@ -33,7 +35,7 @@ function App() {
               <Formulario busqueda={busqueda} setBusqueda={setBusqueda} setEjecutar={setEjecutar} />
             </div>
             <div className="col m6 s12">
-              2
+              <Clima clima={clima} />
             </div>
           </div>
         </div>
